@@ -9,3 +9,4 @@ Components
    new-comp-guide
    component-api
    component-mgmt-api
+   fdk/index

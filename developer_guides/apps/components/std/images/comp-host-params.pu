@@ -1,0 +1,16 @@
+participant "audio/host" as host
+participant "drivers/dma" as dma
+
+autoactivate on
+-> host : params()
+
+   host -> dma : dma_channel_get(dma, params.stream_tag)
+   host <-- dma : chan
+
+   host -> dma : dma_set_config(dma, chan, config)
+   host <-- dma
+
+   host -> dma : dma_set_cb(LLIST, host_dma_cb)
+   host <-- dma
+
+<-- host

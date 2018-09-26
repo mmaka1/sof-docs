@@ -1,0 +1,23 @@
+class comp_driver
+
+class comp_dai
+class comp_eq_fir
+class comp_eq_iir
+class comp_host
+class comp_mixer
+class comp_mux
+class comp_src
+class comp_switch
+class comp_tone
+class comp_volume
+
+comp_dai  --|> comp_driver
+comp_eq_fir  --|> comp_driver
+comp_eq_iir  --|> comp_driver
+comp_host  --|> comp_driver
+comp_mixer  --|> comp_driver
+comp_mux  --|> comp_driver
+comp_src  --|> comp_driver
+comp_switch  --|> comp_driver
+comp_tone  --|> comp_driver
+comp_volume  --|> comp_driver

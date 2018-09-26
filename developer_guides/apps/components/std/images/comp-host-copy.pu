@@ -1,0 +1,10 @@
+participant "audio/host" as host
+participant "drivers/dma" as dma
+
+autoactivate on
+-> host : reset()
+
+   host -> dma : dma_copy(dma, chan, period_bytes)
+   host <-- dma
+
+<-- host

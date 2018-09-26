@@ -1,0 +1,17 @@
+participant "audio/host" as host
+participant "drivers/dma" as dma
+
+autoactivate on
+-> host : trigger(dev, cmd)
+
+   alt COMP_TRIGGER_START
+      host -> dma : dma_start(dma, chan)
+      host <-- dma
+
+   else COMP_TRIGGER_STOP
+      host -> dma : dma_stop(dma, chan)
+      host <-- dma
+      host -> host : host_stop()
+
+   end
+<-- host

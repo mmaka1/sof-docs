@@ -1,0 +1,14 @@
+participant "audio/host" as host
+participant "list/heap" as heap
+participant "drivers/dma" as dma
+
+autoactivate on
+-> host : new(comp)
+
+   host -> heap : rzalloc(Runtime, ...)
+   host <-- heap
+
+   host -> dma : dma_get()
+   host <-- dma : dma*
+
+<-- host

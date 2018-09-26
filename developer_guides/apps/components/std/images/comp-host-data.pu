@@ -1,0 +1,34 @@
+
+hide methods
+
+class dma_sg_elem {
+   uint32_t src
+   uint32_t dest
+   uint32_t size
+}
+class dma_sg_config {
+   src_width
+   dest_width
+   direction
+   cyclic
+   list<dma_sg_elem> elem_list
+}
+
+class host_data {
+   dma_sg_config config
+   
+   hc_buf host
+   hc_buf local
+
+   hc_buf* source
+   hc_buf* sink
+
+   uint32_t period_bytes
+   uint32_t period_count
+}
+
+class dev
+
+dma_sg_config - dma_sg_elem : elem_list
+host_data - dma_sg_config : config
+dev - host_data : private

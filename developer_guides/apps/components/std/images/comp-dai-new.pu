@@ -1,0 +1,20 @@
+participant "audio/dai" as dai_drv
+participant "audio/component" as comp
+participant "lib/heap" as heap
+participant "drivers/dai" as dai
+participant "drivers/dma" as dma
+
+-> dai_drv : new(comp)
+   activate dai_drv
+
+   dai_drv -> heap : rzalloc(Runtime, ...)
+   dai_drv <-- heap : dev
+
+   dai_drv -> dai : dai_get(comp->dai_type, comp->dai_index)
+   dai_drv <-- dai : dai*
+
+   dai_drv -> dma : dma_get(comp->dmac_id)
+   dai_drv <-- dma : dma*
+
+<-- dai_drv
+deactivate dai_drv

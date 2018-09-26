@@ -1,0 +1,14 @@
+participant "audio/dai" as dai_drv
+participant "lib/heap" as heap
+participant "drivers/dai" as dai
+participant "drivers/dma" as dma
+
+-> dai_drv : prepare()
+   activate dai_drv
+   dai_drv -> dai_drv : comp_set_state(COMP_TRIGGER_PREPARE)
+
+   dai_drv -> dma : dma_set_config(...)
+   dai_drv <-- dma
+
+<-- dai_drv
+deactivate dai_drv

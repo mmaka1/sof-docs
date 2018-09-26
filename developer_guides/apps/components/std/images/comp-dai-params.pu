@@ -1,0 +1,17 @@
+participant "audio/dai" as dai_drv
+participant "lib/heap" as heap
+participant "drivers/dma" as dma
+
+-> dai_drv : params()
+   activate dai_drv
+
+   dai_drv -> heap : rzalloc(Runtime, sg list elems...)
+
+   dai_drv -> dma : dma_channel_get(params.stream_tag)
+   dai_drv <-- dma : chan
+
+   dai_drv -> dma : dma_set_cb(BLOCK|LLIST, dam_dma_cb)
+   dai_drv <-- dma
+
+<-- dai_drv
+deactivate dai_drv

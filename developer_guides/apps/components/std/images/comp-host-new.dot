@@ -1,0 +1,10 @@
+digraph G {
+    node [shape = "record"];
+    rankdir = LR;
+
+    dev [label="dev |<private>private"];
+    dev:private -> host_data;
+
+    host_data [label="host_data |<config>config.elem_list"]
+    host_data:config -> dma_sg_elem;
+}

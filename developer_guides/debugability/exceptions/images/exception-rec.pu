@@ -1,0 +1,46 @@
+participant Host
+
+box "Memory Window"
+   participant fw_regs as "FW Registers"
+   participant log_fifo as "Log FIFO"
+end box
+
+box "FW" #b7e5ee
+participant ipc_handler as "IPC Handler\n@Core 0"
+   participant exc_rec as "Exception Record"
+   participant exc_handler as "Exception Handler\n@Core N"
+   participant comp as "FW Component"
+end box
+
+comp -> : causes exception
+exc_handler <- : exception()
+   activate exc_handler  #f58d9f
+
+   create exc_rec
+   exc_handler -> exc_rec : create()
+      note right: Exc cause\nExc location\nExc ...
+
+   exc_handler -> exc_rec : dump_dsp_state()
+      activate exc_rec
+      exc_rec -> fw_regs : write()
+      exc_rec <-- fw_regs
+   exc_handler <-- exc_rec
+   destroy exc_rec
+
+   exc_handler -> ipc_handler : <<IDC>> Exception Caught
+      activate ipc_handler
+      ipc_handler -> ipc_handler : wait for IPC uplink empty
+      ipc_handler -> Host : <<IPC Notification>> Exception Caught
+      deactivate ipc_handlera
+
+   fw_regs <- Host : read(&exception_records)
+
+   exc_handler -> exc_handler :dump_fw_comp_stack()
+   activate exc_handler #f58d9f
+      loop exception_record.rec_state == EXC_REC_DATA_DUMP
+         exc_handler -> exc_handler : read_stack_part()
+         exc_handler -> log_fifo : write_stack_part()
+         log_fifo <- Host : read()
+      end
+   deactivate exc_handler
+   exc_handler -> exc_handler : infinite_loop()

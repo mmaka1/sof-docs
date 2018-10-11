@@ -1,0 +1,20 @@
+state unavailable as "Exc Rec\nUnavailable"
+state in_prog as "Exc Rec\nIn Progress"
+state complete as "Exc Rec\nCore Complete"
+state data_complete as "Exc Rec + Data\nComplete"
+
+[*] --> unavailable
+unavailable : rec_state := EXC_REC_UNAVAILABLE
+
+unavailable -> in_prog : exception caught
+in_prog : rec_state = EXC_REC_STARTED
+
+in_prog --> complete : basic exc rec written\nmore data available
+complete : rec_state := EXC_REC_DATA_DUMP
+
+complete -left-> data_complete : data written
+data_complete : rec_state := EXC_REC_COMPLETE
+
+in_prog --> data_complete : basic exc rec written\nno more data
+
+data_complete --> [*]

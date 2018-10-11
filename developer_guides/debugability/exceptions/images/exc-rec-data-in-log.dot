@@ -1,0 +1,26 @@
+digraph G {
+   node [fontsize=10, shape="record"]
+   edge [fontsize=10]
+   rankdir=LR
+   splines=ortho
+
+   log_fifo [label="...regular log entries...
+      |<sleh>stack log entry header
+      |<stack>\nstack content\n\n
+      |<eocd>end-of-stack-dump\nlog entry header"];
+
+   sleh [label=".file_id = LOG_ENTRY_TAG_FILE_ID\n
+      .entry_len = 1
+      |<tag>LOG_ENTRY_TAG_BOSD
+      |<len>len of stack content (in dwords)"];
+
+   log_fifo:sleh -> sleh;
+
+   eocd_leh [label=".file_id = LOG_ENTRY_TAG_FILE_ID\n
+      .entry_len = 1
+      |<tag>LOG_ENTRY_TAG_EOCD
+      |<len>len of data = 0"];
+
+   log_fifo:eocd -> eocd_leh:w;
+
+}

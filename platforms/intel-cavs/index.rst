@@ -5,21 +5,25 @@ Intel CAVS Platforms
 
 Intel CAVS platforms supported by the |SOF|.
 
-+---------+----------+--------------------+
-|cAVS     |ver. 1.5  | Apollo Lake        |
-|         +----------+--------------------+
-|         |ver. 1.8  | Cannon Lake        |
-|         +----------+--------------------+
-|         |ver. 2.0  | Ice Lake           |
-+---------+----------+--------------------+
++---------+----------+----------------+----------------+
+|cAVS     |*Version* | *Name*         | *Architecture* |
+|         +----------+----------------+----------------+
+|         |1.5       | Apollo Lake    | xtensa-smp     |
+|         +----------+----------------+----------------+
+|         |1.8       | Cannon Lake    | xtensa-smp     |
+|         +----------+----------------+----------------+
+|         |2.0       | Ice Lake       | xtensa-smp     |
++---------+----------+----------------+----------------+
 
-.. uml:: images/cavs-platform-deps.pu
-   :caption: CAVS Platforms
+.. toctree::
+   :maxdepth: 2
+
+   commons/index
 
 .. toctree::
    :maxdepth: 1
+   :caption: Learn more about...
 
-   commons/index
    apollolake/index
    cannonlake/index
    icelake/index

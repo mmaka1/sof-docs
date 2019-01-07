@@ -13,6 +13,6 @@ for details.
 .. TODO: Replace with reference to API tree once created.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    intel-cavs/index

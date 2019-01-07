@@ -23,6 +23,8 @@ provided by the underlying HW at run-time.
 .. uml:: images/device-disco.pu
    :caption: Device discovery and registration
 
+.. _drivers-probing-on-demand:
+
 Probing on Demand
 *****************
 

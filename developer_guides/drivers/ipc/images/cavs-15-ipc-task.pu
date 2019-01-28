@@ -1,0 +1,34 @@
+participant sched as "EDF Scheduler"
+participant ipc_task as "IPC Task"
+participant ipc_drv as "IPC Driver"
+
+sched -> ipc_task : Run()
+   activate ipc_task
+
+   ipc_task -> ipc_task : process_started := 1
+   opt IsDownStreamInUse (<b>DIPCTDR.BUSY</b> == 1)
+      ipc_task -> ipc_task : ProcessMessage()
+         activate ipc_task
+         ipc_task -> ipc_task : <i>Processing ...</i>
+
+         ipc_task -> ipc_drv : ConfirmRequest()
+            activate ipc_drv
+            ipc_drv -> ipc_drv : <b>DIPCT.BUSY</b> := 1
+               note right: set to 1 to clear
+            ipc_drv -> ipc_drv : <b>DIPCCTL.IPCTBIE</b> := 1
+               note right: Busy int enabled again
+            ipc_task <-- ipc_drv
+            deactivate ipc_drv
+
+         ipc_task -> ipc_drv : SendMessage()
+            activate ipc_drv
+            ipc_drv -> ipc_drv : <b>DIPCI.BUSY</b> := 1
+            ipc_task <-- ipc_drv
+            deactivate ipc_drv
+
+         deactivate ipc_task
+   end opt
+
+   ipc_task -> ipc_task : wait while process_started == 1
+
+deactivate ipc_task

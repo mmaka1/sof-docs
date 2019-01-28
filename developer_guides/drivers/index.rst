@@ -8,6 +8,7 @@ of devices are typically available:
 
 * DMA (Direct Memory Access) devices
 * DAI (Digital Audio Interface) devices
+* IPC (Inter Processor Communication) devices
 
 Registering the Devices
 ***********************
@@ -51,3 +52,4 @@ The drivers are located at: *src/drivers*
 
    dma/index
    dai/index
+   ipc/index

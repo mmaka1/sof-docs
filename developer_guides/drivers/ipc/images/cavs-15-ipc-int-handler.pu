@@ -1,0 +1,41 @@
+participant int_disp as "Interrupt\nDispatcher"
+participant ipc_drv as "IPC Driver\n1.5"
+participant ipc_task as "IPC Task\n1.5"
+
+int_disp -> ipc_drv : HandleInt()
+   activate ipc_drv
+
+   note right
+      In the newer implementation, the Busy is checked
+      before handling done and state stored in the local
+      variable.
+   end note
+
+   ipc_drv -> ipc_drv: HandleDoneBitInterrupt() : done_set
+      activate ipc_drv
+      opt DIPCIE.DONE == 1
+         ipc_drv -> ipc_drv : <b>DIPCIE.DONE</b> := 1
+         ipc_drv -> ipc_drv : upstream_in_use := false
+      end opt
+      deactivate ipc_drv
+
+   opt not upstream_in_use
+      ipc_drv -> ipc_drv : SendQueuedMessages()
+      note right
+         No need to change the task context when there is a quick
+         action like sending some already queued message.
+         See the IPC task flow for details.
+      end note
+   end opt
+
+   opt DIPCT.BUSY
+      ipc_drv -> ipc_drv : <b>DIPCCTL.IPCTBIE</b> := 0
+      note right
+         If Busy bit is set - disable busy bit interrupts in
+         the IPC comm control register. It will stay that way
+         until the message is confirmed by the IpcTask.
+      end note
+   end opt
+
+int_disp <-- ipc_drv
+deactivate ipc_drv

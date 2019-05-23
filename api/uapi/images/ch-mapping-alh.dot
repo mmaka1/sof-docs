@@ -1,0 +1,39 @@
+digraph ch_mapping_alh {
+   compound = true;
+   node [shape = record];
+   rankdir = LR;
+   size = 2;
+
+   subgraph cluster_stream {
+      label = "Stream";
+      style = "filled"; color = "#f0f0f0";
+
+      str [label = "<ch_0>ch 0
+                     |<ch_1>ch 1
+                     |<ch_2>ch 2
+                     |<ch_3>ch 3"];
+   }
+
+   subgraph cluster_alh_5 {
+      label = "Alh 5";
+      style = "filled"; color = "#f0f0f0";
+
+      alh_5 [label = "<ch_0>ch 0
+                     |<ch_1>ch 1"];
+   }
+
+   subgraph cluster_alh_7 {
+      label = "Alh 7";
+      style = "filled"; color = "#f0f0f0";
+
+      alh_7 [label = "<ch_0>ch 0
+                     |<ch_1>ch 1"];
+   }
+
+   str:ch_0 -> alh_5:ch_1
+   str:ch_2 -> alh_5:ch_0
+
+   str:ch_1 -> alh_7:ch_0
+   str:ch_3 -> alh_7:ch_1
+
+}

@@ -1,0 +1,32 @@
+digraph ch_mapping_tdm {
+   compound = true;
+   node [shape = record];
+   rankdir = LR;
+   size = 2;
+
+   subgraph cluster_stream {
+      label = "Stream";
+      style = "filled"; color = "#f0f0f0";
+
+      str [label = "<ch_0>ch 0
+                     |<ch_1>ch 1"];
+   }
+
+   subgraph cluster_tdm {
+      label = "Ssp Tdm";
+      style = "filled"; color = "#f0f0f0";
+
+      tdm [label = "<slot_0>slot 0
+                     |<slot_1>slot 1
+                     |<slot_2>slot 2
+                     |<slot_3>slot 3
+                     |<slot_4>slot 4
+                     |<slot_5>slot 5
+                     |<slot_6>slot 6
+                     |<slot_7>slot 7"];
+   }
+
+   str:ch_0 -> tdm:slot_4
+   str:ch_1 -> tdm:slot_3
+
+}

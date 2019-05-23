@@ -4,9 +4,9 @@ API Documentation
 #################
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    dma-drivers-api
    dai-drivers-api
    platform-api
-   uapi
+   uapi/index.rst

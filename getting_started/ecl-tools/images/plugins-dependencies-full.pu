@@ -1,0 +1,35 @@
+package "com.jcraft.jsch" as jsch #LightYellow {}
+note right of jsch
+   Part of base Eclipse distro
+end note
+
+package "org.eclipse.gef.*" as gef #Yellow {}
+note right of gef
+   Must be downloaded
+   separately
+end note
+
+package "org.sofproject.*" as org_sofproject <<frame>> #6fccdd {
+   package "core" as sof_core {}
+   package "ui" as sof_ui {}
+   package "topo.ui" as sof_topo_ui {}
+   package "fw" as sof_fw {}
+   package "fw.ui" as sof_fw_ui {}
+   package "alsa.topo" as sof_alsa_topo {}
+}
+
+sof_core -down-> jsch : uses ssh from
+
+sof_ui -down-> sof_core
+
+sof_fw -> sof_core
+
+sof_fw_ui -down-> sof_fw
+sof_fw_ui -down-> sof_ui
+sof_fw_ui -right-> gef : uses zest
+
+sof_topo_ui -right-> gef : uses zest
+sof_topo_ui -down-> sof_ui
+
+'sof_alsa_topo -down-> sof_core
+sof_alsa_topo -down-> sof_topo_ui

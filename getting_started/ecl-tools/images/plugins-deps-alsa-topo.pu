@@ -1,0 +1,18 @@
+package "org.eclipse.gef.*" as gef #LightYellow {}
+note right of gef
+   Must be installed
+   in Eclipse separately
+end note
+
+package "org.sofproject.ui" as sof_ui #6fccdd {}
+package "org.sofproject.core" as sof_core #6fccdd {}
+
+package "org.sofproject.topo.ui" as sof_topo_ui #d6d6de {}
+package "org.sofproject.alsa.topo" as sof_alsa_topo #d6d6de {}
+
+sof_topo_ui -down-> sof_ui
+sof_alsa_topo -down-> sof_topo_ui
+
+sof_ui -right-> sof_core
+
+sof_topo_ui -> gef : uses zest from

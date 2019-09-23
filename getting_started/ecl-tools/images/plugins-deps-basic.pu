@@ -1,0 +1,17 @@
+package "com.jcraft.jsch" as jsch #LightYellow {}
+note right of jsch
+   Part of base Eclipse distro
+end note
+
+package "org.eclipse.core.*" as ecl_core #LightYellow{}
+package "org.eclipse.ui.*" as ecl_ui #LightYellow {}
+
+package "org.sofproject.core" as sof_core #6fccdd {}
+package "org.sofproject.ui" as sof_ui #6fccdd {}
+
+sof_core -down-> ecl_core
+sof_core -down-> jsch : uses ssh from
+
+sof_ui -right-> sof_core
+sof_ui -down-> ecl_core
+sof_ui -down-> ecl_ui

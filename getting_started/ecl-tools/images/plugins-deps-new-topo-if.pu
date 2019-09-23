@@ -1,0 +1,20 @@
+hide members
+
+package "org.sofproject.core" as sof_core #6fccdd {}
+
+package "org.sofproject.topo.ui" as sof_topo_ui #d6d6de {
+   interface ITopoGraph
+   interface ITopoNode
+   interface ITopoConnection
+   class "topo_providers" <<ExtensionPoint>>
+}
+package "new.topo" as new_topo #LightGreen {
+   class "???"
+}
+
+new_topo -down-> topo_providers : contributes to
+
+ITopoGraph ..> ITopoNode
+ITopoGraph ..> ITopoConnection
+
+"???" -> ITopoGraph : implements

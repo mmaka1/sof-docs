@@ -1,0 +1,11 @@
+hide members
+
+package "org.sofproject.topo.ui" as sof_topo_ui #d6d6de {}
+package "org.sofproject.core" as sof_core #6fccdd {}
+
+package "new.topo" as new_topo #LightGreen {
+   class "???"
+}
+
+new_topo -down-> sof_topo_ui
+new_topo .down.> sof_core : (optional)\nuses remote (ssh)\ncommands from

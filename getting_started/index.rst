@@ -32,3 +32,13 @@ instructions may differ between devices.
    setup/setup_minnowboard_turbot
    setup/setup_up_2_board
    setup/setup_ktest_environment
+
+Using SOF Tools With Eclipse IDE
+********************************
+
+.. toctree::
+   :maxdepth: 1
+
+   ecl-tools/ecl-tools-intro
+   ecl-tools/ecl-tools-installation
+   ecl-tools/ecl-tools-development

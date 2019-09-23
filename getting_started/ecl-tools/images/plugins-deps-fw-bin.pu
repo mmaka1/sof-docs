@@ -1,0 +1,16 @@
+package "org.eclipse.gef.*" as gef #LightYellow {}
+note left of gef
+   Must be installed
+   in Eclipse separately
+end note
+
+package "org.sofproject.ui" as sof_ui #6fccdd {}
+package "org.sofproject.core" as sof_core #6fccdd {}
+
+package "org.sofproject.fw.ui" as sof_fw_ui #a1a1ca {}
+package "org.sofproject.fw" as sof_fw #a1a1ca {}
+
+sof_fw_ui -down-> sof_ui
+sof_fw -down-> sof_core
+
+sof_fw_ui -down-> gef : uses zest from

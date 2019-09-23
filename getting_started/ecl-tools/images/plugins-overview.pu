@@ -1,0 +1,11 @@
+node org.sofproject.ui #6fccdd
+
+node org.sofproject.fw.ui #a1a1ca
+
+node org.sofproject.alsa.topo #d6d6de
+
+node org.sofproject.core #6fccdd
+
+node org.sofproject.fw #a1a1ca
+
+node org.sofproject.topo.ui #d6d6de
